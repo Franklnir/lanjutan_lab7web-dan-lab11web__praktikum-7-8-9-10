@@ -14,3 +14,16 @@
 ### memodidikasi `ArtikelModel.php`
 ![image](https://github.com/user-attachments/assets/85eb1765-34ed-452e-a00e-667eebef9478)
 
+
+### 
+![image](https://github.com/user-attachments/assets/02fbe3d3-a7e3-45c2-adfa-56b9c7820485)
+
+### 
+![image](https://github.com/user-attachments/assets/ce195185-3187-47ab-93f9-f3ed3cb54936)
+
+
+### 
+![image](https://github.com/user-attachments/assets/ca02ac60-107b-4480-aba5-05ca138d0c22)
+
+
+
