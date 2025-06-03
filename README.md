@@ -49,3 +49,10 @@ artikel.
    ![image](https://github.com/user-attachments/assets/3ba7f428-d5ee-4253-b954-150817a8e079)
 
 
+
+
+
+
+# PRAKTIKUM 8
+
+
