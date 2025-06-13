@@ -41,6 +41,8 @@
    sudah
 3. Modifikasi tampilan detail artikel (artikel/detail.php) untuk menampilkan nama kategori
 artikel.
+![image](https://github.com/user-attachments/assets/5a76794e-99ae-43d0-b3dd-8d9d330febb2)
+
 ![image](https://github.com/user-attachments/assets/54cfe2df-1deb-491a-bebf-aa3f8fddfb23)
 
 5. Tambahkan fitur untuk menampilkan daftar kategori di halaman depan (opsional).
