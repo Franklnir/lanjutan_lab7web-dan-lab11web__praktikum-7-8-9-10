@@ -55,11 +55,23 @@ artikel.
 
 # PRAKTIKUM 8
 
+
+### instal ajax versi terbaru dan letakkan di di rektori publik/asset/js/
+![image](https://github.com/user-attachments/assets/f32e9d8a-0545-4713-8a4b-c8a136ee7507)
+
+
 ### Membuat AJAX Controller (AjaxController.php)
 ![image](https://github.com/user-attachments/assets/4b4fbd64-1745-4c36-a288-8236acc5e829)
+![image](https://github.com/user-attachments/assets/8f5c74f7-83c5-4a1c-a85d-418861a9629b)
+
+
 
                                       
-### Membuat View di dalama view/ajax/idex.php
+### pastikan url js nya di panggil
+![image](https://github.com/user-attachments/assets/4e6bf5a1-fb4c-493a-a8d1-871ba2993007)
+
+                                      
+### Membuat View di dalam view/ajax/idex.php
 ![image](https://github.com/user-attachments/assets/19ddac0c-a73b-4ae4-ae96-d9e7106bd9d6)
 
 ![image](https://github.com/user-attachments/assets/0c7d6cb0-55af-478b-87e1-4f7609be3924)
