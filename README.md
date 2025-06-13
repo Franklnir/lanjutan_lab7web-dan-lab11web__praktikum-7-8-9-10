@@ -19,6 +19,8 @@
 
 ### langkah 6.Testing Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
 • Menampilkan daftar artikel dengan nama kategori.
+![image](https://github.com/user-attachments/assets/aa591427-5817-4fce-8d0b-f7f948b71a29)
+
 ![image](https://github.com/user-attachments/assets/919f6e12-1d0c-459a-9951-436d928826a1)
 
 • Menambah artikel baru dengan memilih kategori.
