@@ -1,24 +1,23 @@
 # lanjutan-praktikum-7-8-9
 
 # PRAKTIKUM 7
-### membuat table kategori sebagai berikut :
+### langkah 1. membuat table kategori sebagai berikut :
 ![image](https://github.com/user-attachments/assets/eff28be4-9011-4968-806a-da5511bb4a8a)
 
 
-### Mengubah Tabel Artikel Tambahkan foreign key `id_kategori` pada tabel `artikel` untuk membuat relasi dengan tabel `kategori`.
+### langkah 2. Mengubah Tabel Artikel Tambahkan foreign key `id_kategori` pada tabel `artikel` untuk membuat relasi dengan tabel `kategori`.
 ![image](https://github.com/user-attachments/assets/410040a6-7b40-4848-ad6f-82d35b25ab25)
 
-### Membuat Model Kategori
+### langkah 3. Membuat Model Kategori
 ![image](https://github.com/user-attachments/assets/e43e27cf-0112-4607-81e1-4a9f35842e5c)
 
-### memodidikasi `ArtikelModel.php`
+### langkah 4.memodidikasi `ArtikelModel.php`
 ![image](https://github.com/user-attachments/assets/85eb1765-34ed-452e-a00e-667eebef9478)
 
-### Memodifikasi View index.php, admin_index.php, form_add.php, form_edit.php, 
+### langkah 5.Memodifikasi View index.php, admin_index.php, form_add.php, form_edit.php, 
 
 
-### Testing
-Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
+### langkah 6.Testing Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
 • Menampilkan daftar artikel dengan nama kategori.
 ![image](https://github.com/user-attachments/assets/919f6e12-1d0c-459a-9951-436d928826a1)
 
@@ -35,7 +34,7 @@ Lakukan uji coba untuk memastikan semua fungsi berjalan dengan baik:
 ![image](https://github.com/user-attachments/assets/9113966e-2515-4f8d-b5ce-f2f4226e998f)
 
 
-### Pertanyaan dan Tugas
+### langkah 7.Pertanyaan dan Tugas
 1. Selesaikan semua langkah praktikum di atas.
    sudah
 3. Modifikasi tampilan detail artikel (artikel/detail.php) untuk menampilkan nama kategori
@@ -56,28 +55,28 @@ artikel.
 # PRAKTIKUM 8
 
 
-### instal ajax versi terbaru dan letakkan di di rektori publik/asset/js/
+### langkah 1.instal ajax versi terbaru dan letakkan di di rektori publik/asset/js/
 ![image](https://github.com/user-attachments/assets/f32e9d8a-0545-4713-8a4b-c8a136ee7507)
 
 
-### Membuat AJAX Controller (AjaxController.php)
+### langkah 2.Membuat AJAX Controller (AjaxController.php)
 ![image](https://github.com/user-attachments/assets/4b4fbd64-1745-4c36-a288-8236acc5e829)
 ![image](https://github.com/user-attachments/assets/8f5c74f7-83c5-4a1c-a85d-418861a9629b)
 
 
 
                                       
-### pastikan url js nya di panggil
+### langkah 3.pastikan url js nya di panggil
 ![image](https://github.com/user-attachments/assets/4e6bf5a1-fb4c-493a-a8d1-871ba2993007)
 
                                       
-### Membuat View di dalam view/ajax/idex.php
+### langkah 4.Membuat View di dalam view/ajax/idex.php
 ![image](https://github.com/user-attachments/assets/19ddac0c-a73b-4ae4-ae96-d9e7106bd9d6)
 
 ![image](https://github.com/user-attachments/assets/0c7d6cb0-55af-478b-87e1-4f7609be3924)
 
 
-### saya menambahkan waktu bedasarkan data terbaru dan terbaru di update dan manmpilkan data artikel paling atas yang paling terbaru
+### langkah 5.saya menambahkan waktu bedasarkan data terbaru dan terbaru di update dan manmpilkan data artikel paling atas yang paling terbaru
 ![image](https://github.com/user-attachments/assets/81388675-121c-4b05-bad3-b45eeb3bacaf)
 
 
