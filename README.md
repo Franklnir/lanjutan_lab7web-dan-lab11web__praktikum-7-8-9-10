@@ -79,6 +79,13 @@ artikel.
 
 ![image](https://github.com/user-attachments/assets/0c7d6cb0-55af-478b-87e1-4f7609be3924)
 
+### langkah 5.testing ajax
+![image](https://github.com/user-attachments/assets/d36c9d43-748e-48c7-bac2-0f104103c7ee)
+
+data otomatis tampil di kolom data artikel secara realtime ketika di klik edit tanpa perlu refress
+
+![image](https://github.com/user-attachments/assets/350aeb4c-5181-4cf2-9590-366ebfe19a69)
+
 
 ### langkah 5.saya menambahkan waktu bedasarkan data terbaru dan terbaru di update dan manmpilkan data artikel paling atas yang paling terbaru
 ![image](https://github.com/user-attachments/assets/81388675-121c-4b05-bad3-b45eeb3bacaf)
