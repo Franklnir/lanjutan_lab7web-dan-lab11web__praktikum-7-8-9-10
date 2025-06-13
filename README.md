@@ -70,7 +70,7 @@ artikel.
 
 
                                       
-### langkah 3.pastikan url js nya di panggil
+### langkah 3.pastikan url js nya di panggil di view/ajax/index
 ![image](https://github.com/user-attachments/assets/4e6bf5a1-fb4c-493a-a8d1-871ba2993007)
 
                                       
