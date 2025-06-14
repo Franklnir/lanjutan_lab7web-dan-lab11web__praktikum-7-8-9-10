@@ -102,5 +102,261 @@ data otomatis tampil di kolom data artikel secara realtime ketika di klik edit t
 ![image](https://github.com/user-attachments/assets/81388675-121c-4b05-bad3-b45eeb3bacaf)
 
 
+
+
+
+
+
+# PRAKTIKUM 9
+
+### langkah 1 Modifikasi Controller Artikel
+public function admin_index()
+                           {
+                               $title = 'Daftar Artikel (Admin)';
+                               $model = new ArtikelModel();
+                               $q = $this->request->getVar('q') ?? '';
+                               $kategori_id = $this->request->getVar('kategori_id') ?? '';
+                               $sort = $this->request->getVar('sort') ?? 'artikel.id';
+                               $order = $this->request->getVar('order') ?? 'desc';
+                               $page = $this->request->getVar('page') ?? 1;
+                           
+                               $builder = $model->table('artikel')
+                                   ->select('artikel.*, kategori.nama_kategori')
+                                   ->join('kategori', 'kategori.id_kategori = artikel.id_kategori');
+                           
+                               if ($q != '') {
+                                   $builder->like('artikel.judul', $q);
+                               }
+                           
+                               if ($kategori_id != '') {
+                                   $builder->where('artikel.id_kategori', $kategori_id);
+                               }
+                           
+                               $builder->orderBy($sort, $order);
+                           
+                               $artikel = $builder->paginate(10, 'default', $page);
+                               $pager = $model->pager;
+                           
+                               $data = [
+                                   'title' => $title,
+                                   'q' => $q,
+                                   'kategori_id' => $kategori_id,
+                                   'artikel' => $artikel,
+                                   'pager' => $pager
+                               ];
+                           
+                               if ($this->request->isAJAX()) {
+                                   return $this->response->setJSON($data);
+                               } else {
+                                   $kategoriModel = new KategoriModel();
+                                   $data['kategori'] = $kategoriModel->findAll();
+                                   return view('artikel/admin_index', $data);
+                               }
+                           }
+
+
+### langkah 2. penjelasan
+Penjelasan:
+• `$page = $this->request->getVar('page') ?? 1;`: Mendapatkan nomor
+halaman dari request. Jika tidak ada, default ke halaman 1.
+• `$builder->paginate(10, 'default', $page);`: Menerapkan pagination
+dengan nomor halaman yang diberikan.
+• `$this->request->isAJAX()`: Memeriksa apakah request yang datang adalah
+AJAX.
+• Jika AJAX, kembalikan data artikel dan pager dalam format JSON.
+• Jika bukan AJAX, tampilkan view seperti biasa.
+
+
+
+### langkah 3. Modifikasi View (admin_index.php)
+* Ubah view `admin_index.php` untuk menggunakan jQuery.
+* Hapus kode yang menampilkan tabel artikel dan pagination secara langsung.
+* Tambahkan elemen untuk menampilkan data artikel dan pagination dari AJAX.
+* Tambahkan kode jQuery untuk melakukan request AJAX.
+
+                              <?= $this->include('template/admin_header'); ?>
+                              <h2><?= $title; ?></h2>
+                              
+                              <div class="row mb-3">
+                                  <div class="col-md-6">
+                                      <form id="search-form" class="form-inline">
+                                          <input type="text" name="q" id="search-box" value="<?= $q; ?>" placeholder="Cari judul artikel" class="form-control mr-2">
+                                          <select name="kategori_id" id="category-filter" class="form-control mr-2">
+                                              <option value="">Semua Kategori</option>
+                                              <?php foreach ($kategori as $k): ?>
+                                                  <option value="<?= $k['id_kategori']; ?>" <?= ($kategori_id == $k['id_kategori']) ? 'selected' : ''; ?>>
+                                                      <?= $k['nama_kategori']; ?>
+                                                  </option>
+                                              <?php endforeach; ?>
+                                          </select>
+                                          <input type="submit" value="Cari" class="btn btn-primary">
+                                      </form>
+                                  </div>
+                              </div>
+                              
+                              <!-- Indikator loading -->
+                              <div id="loading"><span class="loader"></span> Memuat data...</div>
+                              
+                              <!-- Sort -->
+                              <div class="mb-3">
+                                  <label>Urutkan: </label>
+                                  <select id="sort-select" class="form-control d-inline-block w-auto ml-2">
+                                      <option value="artikel.id|desc">Terbaru</option>
+                                      <option value="artikel.judul|asc">Judul A-Z</option>
+                                      <option value="artikel.judul|desc">Judul Z-A</option>
+                                  </select>
+                              </div>
+                              
+                              <!-- Tempat artikel dan pagination -->
+                              <div id="article-container"></div>
+                              <div id="pagination-container"></div>
+                              
+                              <!-- Gaya Loading -->
+                              <style>
+                              #loading {
+                                  display: none;
+                                  font-weight: bold;
+                                  color: #007bff;
+                                  margin-bottom: 10px;
+                              }
+                              .loader {
+                                  border: 4px solid #f3f3f3;
+                                  border-top: 4px solid #007bff;
+                                  border-radius: 50%;
+                                  width: 20px;
+                                  height: 20px;
+                                  animation: spin 1s linear infinite;
+                                  display: inline-block;
+                                  vertical-align: middle;
+                                  margin-right: 8px;
+                              }
+                              @keyframes spin {
+                                  0% { transform: rotate(0deg); }
+                                  100% { transform: rotate(360deg); }
+                              }
+                              </style>
+                              
+                              <!-- jQuery -->
+                              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                              <script>
+                              $(document).ready(function() {
+                                  const articleContainer = $('#article-container');
+                                  const paginationContainer = $('#pagination-container');
+                                  const searchForm = $('#search-form');
+                                  const searchBox = $('#search-box');
+                                  const categoryFilter = $('#category-filter');
+                                  const sortSelect = $('#sort-select');
+                                  const loading = $('#loading');
+                              
+                                  let currentSort = 'artikel.id';
+                                  let currentOrder = 'desc';
+                              
+                                  const fetchData = (url) => {
+                                      loading.show();
+                                      $.ajax({
+                                          url: url,
+                                          type: 'GET',
+                                          dataType: 'json',
+                                          headers: {
+                                              'X-Requested-With': 'XMLHttpRequest'
+                                          },
+                                          success: function(data) {
+                                              renderArticles(data.artikel);
+                                              renderPagination(data.pager, data.q, data.kategori_id);
+                                          },
+                                          complete: function() {
+                                              loading.hide();
+                                          }
+                                      });
+                                  };
+                              
+                                  const renderArticles = (articles) => {
+                                      let html = '<table class="table table-bordered">';
+                                      html += '<thead><tr><th>ID</th><th>Judul</th><th>Kategori</th><th>Status</th><th>Aksi</th></tr></thead><tbody>';
+                              
+                                      if (articles.length > 0) {
+                                          articles.forEach(article => {
+                                              html += `
+                                              <tr>
+                                                  <td>${article.id}</td>
+                                                  <td><b>${article.judul}</b><p><small>${article.isi.substring(0, 50)}...</small></p></td>
+                                                  <td>${article.nama_kategori}</td>
+                                                  <td>${article.status}</td>
+                                                  <td>
+                                                      <a class="btn btn-sm btn-info" href="/admin/artikel/edit/${article.id}">Ubah</a>
+                                                      <a class="btn btn-sm btn-danger" onclick="return confirm('Yakin menghapus data?');" href="/admin/artikel/delete/${article.id}">Hapus</a>
+                                                  </td>
+                                              </tr>`;
+                                          });
+                                      } else {
+                                          html += '<tr><td colspan="5">Tidak ada data.</td></tr>';
+                                      }
+                              
+                                      html += '</tbody></table>';
+                                      articleContainer.html(html);
+                                  };
+                              
+                                  const renderPagination = (pager, q, kategori_id) => {
+                                      let html = '<nav><ul class="pagination">';
+                                      pager.links.forEach(link => {
+                                          let url = link.url ? `${link.url}&q=${q}&kategori_id=${kategori_id}&sort=${currentSort}&order=${currentOrder}` : '#';
+                                          html += `
+                                              <li class="page-item ${link.active ? 'active' : ''}">
+                                                  <a class="page-link" href="${url}">${link.title}</a>
+                                              </li>`;
+                                      });
+                                      html += '</ul></nav>';
+                                      paginationContainer.html(html);
+                                  };
+                              
+                                  searchForm.on('submit', function(e) {
+                                      e.preventDefault();
+                                      const q = searchBox.val();
+                                      const kategori_id = categoryFilter.val();
+                                      fetchData(`/admin/artikel?q=${q}&kategori_id=${kategori_id}&sort=${currentSort}&order=${currentOrder}`);
+                                  });
+                              
+                                  categoryFilter.on('change', function() {
+                                      searchForm.trigger('submit');
+                                  });
+                              
+                                  sortSelect.on('change', function() {
+                                      const val = $(this).val().split('|');
+                                      currentSort = val[0];
+                                      currentOrder = val[1];
+                                      searchForm.trigger('submit');
+                                  });
+                              
+                                  $(document).on('click', '.pagination a', function(e) {
+                                      e.preventDefault();
+                                      const url = $(this).attr('href');
+                                      if (url && url !== '#') {
+                                          fetchData(url);
+                                      }
+                                  });
+                              
+                                  // Initial load
+                                  fetchData(`/admin/artikel?sort=${currentSort}&order=${currentOrder}`);
+                              });
+                              </script>
+                              <?= $this->include('template/admin_footer'); ?>
+
+### langkah 4.Pertanyaan dan Tugas
+1. Selesaikan semua langkah praktikum di atas.
+2. Modifikasi tampilan data artikel dan pagination sesuai kebutuhan desain.
+3. ![image](https://github.com/user-attachments/assets/cd1eb8be-5018-4e47-a4f0-513abfc89125)
+
+4. Tambahkan indikator loading saat data sedang diambil dari server.
+   ![image](https://github.com/user-attachments/assets/3bf3b9d3-2296-41ab-bc0a-2016e900bbf4)
+
+6. Implementasikan fitur sorting (mengurutkan artikel berdasarkan judul, dll.) dengan AJAX.
+   ![image](https://github.com/user-attachments/assets/fbe45fec-72f7-4c55-b981-11c713a95cad)
+   ![image](https://github.com/user-attachments/assets/9164ef79-9b4f-4705-ad52-ad4450a4875c)
+   ![image](https://github.com/user-attachments/assets/c459595e-6d95-4768-8d59-5c94fa0e4366)
+
+
+
+
+
                                                                                                    
 >>>>>>> 8e32abc33804f269f1b351231cd31039531283ea
