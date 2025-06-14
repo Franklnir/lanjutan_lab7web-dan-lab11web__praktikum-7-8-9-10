@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-tugas 1
-menampilkan hasil *php spark*
-![image](https://github.com/user-attachments/assets/51e4baa9-2878-47ab-adb3-c3a34dd1c0ac)
-mengubah envirorment menjadi developer
-![image](https://github.com/user-attachments/assets/2d2e0d5d-d3c6-4412-8cc0-524e584be44b)
-membuat routs baru
-*foto*
-membuat layout web
-*foto*
-=======
 # lanjutan-praktikum-7-8-9
 
 # PRAKTIKUM 7
@@ -237,7 +226,7 @@ AJAX.
                               </style>
                               
                               <!-- jQuery -->
-                              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                              <script src="<?= base_url('assets/jquery-3.7.1.min.js') ?>"></script>
                               <script>
                               $(document).ready(function() {
                                   const articleContainer = $('#article-container');
@@ -353,6 +342,9 @@ AJAX.
    ![image](https://github.com/user-attachments/assets/fbe45fec-72f7-4c55-b981-11c713a95cad)
    ![image](https://github.com/user-attachments/assets/9164ef79-9b4f-4705-ad52-ad4450a4875c)
    ![image](https://github.com/user-attachments/assets/c459595e-6d95-4768-8d59-5c94fa0e4366)
+
+   ![image](https://github.com/user-attachments/assets/f1678480-03fe-4d51-a84d-8bf9ad32bf6a)
+
 
 
 
