@@ -347,6 +347,9 @@ create(): Menambahkan data baru ke database.
 show($id): Menampilkan data spesifik berdasarkan ID.
 update($id): Mengubah data yang ada di database.
 delete($id): Menghapus data dari database.
+
+
+
                            <?php
                            namespace App\Controllers;
                            use CodeIgniter\RESTful\ResourceController;
