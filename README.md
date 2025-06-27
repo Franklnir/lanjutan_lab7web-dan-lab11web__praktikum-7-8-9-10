@@ -1,4 +1,9 @@
-# lanjutan-praktikum-7-8-9
+# lanjutan-praktikum-7-8-9-10
+
+
+
+
+
 
 # PRAKTIKUM 7
 ### langkah 1. membuat table kategori sebagai berikut :
