@@ -170,7 +170,6 @@ AJAX.
 
                               <?= $this->include('template/admin_header'); ?>
                               <h2><?= $title; ?></h2>
-                              
                               <div class="row mb-3">
                                   <div class="col-md-6">
                                       <form id="search-form" class="form-inline">
@@ -187,10 +186,8 @@ AJAX.
                                       </form>
                                   </div>
                               </div>
-                              
                               <!-- Indikator loading -->
                               <div id="loading"><span class="loader"></span> Memuat data...</div>
-                              
                               <!-- Sort -->
                               <div class="mb-3">
                                   <label>Urutkan: </label>
@@ -200,7 +197,6 @@ AJAX.
                                       <option value="artikel.judul|desc">Judul Z-A</option>
                                   </select>
                               </div>
-                              
                               <!-- Tempat artikel dan pagination -->
                               <div id="article-container"></div>
                               <div id="pagination-container"></div>
@@ -229,7 +225,6 @@ AJAX.
                                   100% { transform: rotate(360deg); }
                               }
                               </style>
-                              
                               <!-- jQuery -->
                               <script src="<?= base_url('assets/jquery-3.7.1.min.js') ?>"></script>
                               <script>
@@ -241,10 +236,8 @@ AJAX.
                                   const categoryFilter = $('#category-filter');
                                   const sortSelect = $('#sort-select');
                                   const loading = $('#loading');
-                              
                                   let currentSort = 'artikel.id';
                                   let currentOrder = 'desc';
-                              
                                   const fetchData = (url) => {
                                       loading.show();
                                       $.ajax({
@@ -263,11 +256,9 @@ AJAX.
                                           }
                                       });
                                   };
-                              
                                   const renderArticles = (articles) => {
                                       let html = '<table class="table table-bordered">';
                                       html += '<thead><tr><th>ID</th><th>Judul</th><th>Kategori</th><th>Status</th><th>Aksi</th></tr></thead><tbody>';
-                              
                                       if (articles.length > 0) {
                                           articles.forEach(article => {
                                               html += `
@@ -285,11 +276,9 @@ AJAX.
                                       } else {
                                           html += '<tr><td colspan="5">Tidak ada data.</td></tr>';
                                       }
-                              
                                       html += '</tbody></table>';
                                       articleContainer.html(html);
                                   };
-                              
                                   const renderPagination = (pager, q, kategori_id) => {
                                       let html = '<nav><ul class="pagination">';
                                       pager.links.forEach(link => {
@@ -302,25 +291,21 @@ AJAX.
                                       html += '</ul></nav>';
                                       paginationContainer.html(html);
                                   };
-                              
                                   searchForm.on('submit', function(e) {
                                       e.preventDefault();
                                       const q = searchBox.val();
                                       const kategori_id = categoryFilter.val();
                                       fetchData(`/admin/artikel?q=${q}&kategori_id=${kategori_id}&sort=${currentSort}&order=${currentOrder}`);
                                   });
-                              
                                   categoryFilter.on('change', function() {
                                       searchForm.trigger('submit');
                                   });
-                              
                                   sortSelect.on('change', function() {
                                       const val = $(this).val().split('|');
                                       currentSort = val[0];
                                       currentOrder = val[1];
                                       searchForm.trigger('submit');
                                   });
-                              
                                   $(document).on('click', '.pagination a', function(e) {
                                       e.preventDefault();
                                       const url = $(this).attr('href');
@@ -328,7 +313,6 @@ AJAX.
                                           fetchData(url);
                                       }
                                   });
-                              
                                   // Initial load
                                   fetchData(`/admin/artikel?sort=${currentSort}&order=${currentOrder}`);
                               });
@@ -351,6 +335,102 @@ AJAX.
    ![image](https://github.com/user-attachments/assets/f1678480-03fe-4d51-a84d-8bf9ad32bf6a)
 
 
+
+# PARKTIKUM 10
+
+### langkah 1 Membuat Model Manfaatkan model yang sudah ada (misalnya ArtikelModel) agar dapat diakses melalui API.
+Membuat REST Controller
+Buat file controller baru, misalnya Post.php, di dalam direktori app\Controllers
+ File ini akan berisi fungsi-fungsi untuk:
+index(): Menampilkan semua data dari database.
+create(): Menambahkan data baru ke database.
+show($id): Menampilkan data spesifik berdasarkan ID.
+update($id): Mengubah data yang ada di database.
+delete($id): Menghapus data dari database.
+                           <?php
+                           namespace App\Controllers;
+                           use CodeIgniter\RESTful\ResourceController;
+                           use CodeIgniter\API\ResponseTrait;
+                           use App\Models\ArtikelModel;
+                           
+                           class Post extends ResourceController
+                           {
+                               use ResponseTrait;
+                               // all users
+                               public function index()
+                               {
+                                   $model = new ArtikelModel();
+                                   $data['artikel'] = $model->orderBy('id', 'DESC')->findAll();
+                                   return $this->respond($data);
+                               }
+                               // create
+                               public function create()
+                               {
+                                   $model = new ArtikelModel();
+                                   $data = [
+                                       'judul' => $this->request->getVar('judul'),
+                                       'isi' => $this->request->getVar('isi'),
+                                   ];
+                                   $model->insert($data);
+                                   $response = [
+                                       'status' => 201,
+                                       'error' => null,
+                                       'messages' => [
+                                           'success' => 'Data artikel berhasil ditambahkan.'
+                                       ]
+                                   ];
+                                   return $this->respondCreated($response);
+                               }
+                               // single user
+                               public function show($id = null)
+                               {
+                                   $model = new ArtikelModel();
+                                   $data = $model->where('id', $id)->first();
+                                   if ($data) {
+                                       return $this->respond($data);
+                                   } else {
+                                       return $this->failNotFound('Data tidak ditemukan.');
+                                   }
+                               }
+                               // update
+                               public function update($id = null)
+                               {
+                                   $model = new ArtikelModel();
+                                   $id = $this->request->getVar('id');
+                                   $data = [
+                                       'judul' => $this->request->getVar('judul'),
+                                       'isi' => $this->request->getVar('isi'),
+                                   ];
+                                   $model->update($id, $data);
+                                   $response = [
+                                       'status' => 200,
+                                       'error' => null,
+                                       'messages' => [
+                                           'success' => 'Data artikel berhasil diubah.'
+                                       ]
+                                   ];
+                                   return $this->respond($response);
+                               }
+                               // delete
+                               public function delete($id = null)
+                               {
+                                   $model = new ArtikelModel();
+                                   $data = $model->where('id', $id)->delete($id);
+                                   if ($data) {
+                                       $model->delete($id); // This line is redundant if $data is already true from previous delete call.
+                                       $response = [
+                                           'status' => 200,
+                                           'error' => null,
+                                           'messages' => [
+                                               'success' => 'Data artikel berhasil dihapus.'
+                                           ]
+                                       ];
+                                       return $this->respondDeleted($response);
+                                   } else {
+                                       return $this->failNotFound('Data tidak ditemukan.');
+                                   }
+                               }
+                           }
 
 
 
