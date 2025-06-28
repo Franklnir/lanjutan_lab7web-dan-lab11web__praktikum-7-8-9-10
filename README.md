@@ -348,8 +348,6 @@ show($id): Menampilkan data spesifik berdasarkan ID.
 update($id): Mengubah data yang ada di database.
 delete($id): Menghapus data dari database.
 
-
-
                            <?php
                            namespace App\Controllers;
                            use CodeIgniter\RESTful\ResourceController;
@@ -434,6 +432,39 @@ delete($id): Menghapus data dari database.
                                    }
                                }
                            }
+
+
+### langkah 2 Membuat Routing REST API di app/Config/Routes.php
+                        $routes->resource('post');
+
+Untuk melihat daftar route yang dihasilkan
+                        php spark routes
+
+![image](https://github.com/user-attachments/assets/47fc22b1-dbfa-436b-af87-ffbb87646d54)
+
+
+### langkah 3 testing Menguji REST API CodeIgniter dengan Postman atau uji di extension vscode dengan nama thunder client
+# menmapilkan semua data dengan GET http://localhost:8080/post
+![image](https://github.com/user-attachments/assets/7dc61186-6a94-47a9-b686-e9d7d2de9c07)
+
+# menampilkan data spesifik (GET dengan ID) http://localhost:8080/post/25
+![image](https://github.com/user-attachments/assets/963e9d58-f5ca-4c56-bd35-c1ced647d703)
+
+# Mengubah Data (PUT) http://localhost:8080/post/37
+![image](https://github.com/user-attachments/assets/5465a8d3-4156-4248-b60b-7effe12e1630)
+
+# Menambahkan Data (POST) http://localhost:8080/post
+![image](https://github.com/user-attachments/assets/e78b8520-d174-4fff-947c-5d232e1fe81e)
+
+# Menghapus Data (DELETE) http://localhost:8080/post/25
+![image](https://github.com/user-attachments/assets/e396ee1d-09ca-4acc-a5e2-8cc8e4e314db)
+
+
+
+
+
+
+
 
 
 
