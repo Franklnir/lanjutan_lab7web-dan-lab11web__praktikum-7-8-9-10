@@ -43,10 +43,14 @@ $routes->get('/ajax/getCategories', 'AjaxController::getCategories'); // New rou
 $routes->post('/ajax/update/(:num)', 'AjaxController::update/$1'); // Tetap POST untuk update karena ada file
 $routes->delete('/ajax/delete/(:num)', 'AjaxController::delete/$1');
 $routes->post('/ajax/removeImage/(:num)', 'AjaxController::removeImage/$1'); // Route baru untuk menghapus gambar
-
+$routes->resource('post');
 // Routing user (login & logout)
 $routes->match(['get', 'post'], 'login', 'Auth::login');
 $routes->get('logout', 'Auth::logout');
+
+
+$routes->get('artikel/detail/(:num)', 'Artikel::detail/$1');
+
 
 $routes->get('user/login', 'User::login');
 $routes->post('user/login', 'User::login');
