@@ -460,9 +460,12 @@ Untuk melihat daftar route yang dihasilkan
 ![image](https://github.com/user-attachments/assets/e396ee1d-09ca-4acc-a5e2-8cc8e4e314db)
 
 
+
+
+
 # PRAKTIKUM 11
 
-### langkah 1 Buatlah struktur proyek baru Anda seperti berikut (didalam htdoc) :
+### langkah 1 Buatlah folder (didalam htdoc) dan struktur proyek baru Anda seperti berikut  :
                      │ index.html
                      └───assets
                          ├───css
@@ -642,7 +645,7 @@ Untuk melihat daftar route yang dihasilkan
                                        }).mount('#app')
 
 
-### langkah 4 isi fikle css nya bebas
+### langkah 4 isi file css nya bebas
 
 ### langkah 5 modifikasi ci4 di bagian controller/post.php untuk menambahkan CORS
 ### langkah 6 jalankan ci4 nya dengan php spark serve
