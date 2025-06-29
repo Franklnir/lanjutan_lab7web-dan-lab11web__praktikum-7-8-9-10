@@ -463,7 +463,8 @@ Untuk melihat daftar route yang dihasilkan
 
 
 
-# PRAKTIKUM 11
+# PRAKTIKUM 11 
+### menggunakan vue.js 
 
 ### langkah 1 Buatlah folder (didalam htdoc) dan struktur proyek baru Anda seperti berikut  :
                      │ index.html
